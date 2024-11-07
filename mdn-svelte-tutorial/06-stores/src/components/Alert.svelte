@@ -1,22 +1,15 @@
 <script>
     import { alert } from '../stores.js'
-    import { onDestroy } from 'svelte'
-  
-    let alertContent = ''
-  
-    const unsubscribe = alert.subscribe((value) => alertContent = value)
-  
-    onDestroy(unsubscribe)
-  </script>
-  
-  {#if alertContent}
-  <div on:click={() => alertContent = ''}>
-    <p>{ alertContent }</p>
-  </div>
-  {/if}
-  
-  <style>
-  div {
+</script>
+
+{#if $alert}
+<div on:click={() => $alert = ''}>
+    <p>{ $alert }</p>
+</div>
+{/if}
+
+<style>
+div {
     position: fixed;
     cursor: pointer;
     margin-right: 1.5rem;
@@ -33,15 +26,14 @@
     font-size: 1.5rem;
     z-index: 100;
     opacity: 95%;
-  }
-  div p {
+}
+div p {
     color: #fff;
-  }
-  div svg {
+}
+div svg {
     height: 1.6rem;
     fill: currentcolor;
     width: 1.4rem;
     margin-right: 0.5rem;
-  }
-  </style>
-  
+}
+</style>
