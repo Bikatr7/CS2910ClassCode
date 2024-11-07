@@ -1,3 +1,10 @@
+<script>
+  export let todos = [];
+  let totalTodos = todos.length;
+  let completedTodos = todos.filter((todo) => todo.completed).length;
+</script>
+
+
 <!-- Todos.svelte -->
 <div class="todoapp stack-large">
 
@@ -35,79 +42,35 @@
   </div>
 
   <!-- TodosStatus -->
-  <h2 id="list-heading">2 out of 3 items completed</h2>
+  <h2 id="list-heading">{completedTodos} out of {totalTodos} items completed</h2>
 
   <!-- Todos -->
-  <ul role="list" class="todo-list stack-large" aria-labelledby="list-heading">
-
-    <!-- todo-1 (editing mode) -->
-    <li class="todo">
-      <div class="stack-small">
-        <form class="stack-small">
-          <div class="form-group">
-            <label for="todo-1" class="todo-label">
-              New name for 'Create a Svelte starter app'
-            </label>
-            <input type="text" id="todo-1" autocomplete="off" class="todo-text" />
-          </div>
-          <div class="btn-group">
-            <button class="btn todo-cancel" type="button">
-              Cancel
-              <span class="visually-hidden">renaming Create a Svelte starter app</span>
-            </button>
-            <button class="btn btn__primary todo-edit" type="submit">
-              Save
-              <span class="visually-hidden">new name for Create a Svelte starter app</span>
-            </button>
-          </div>
-        </form>
+<!-- To-dos -->
+<ul role="list" class="todo-list stack-large" aria-labelledby="list-heading">
+  {#each todos as todo (todo.id)}
+  <li class="todo">
+    <div class="stack-small">
+      <div class="c-cb">
+        <input
+          type="checkbox"
+          id="todo-{todo.id}"
+          checked={todo.completed} />
+        <label for="todo-{todo.id}" class="todo-label"> {todo.name} </label>
       </div>
-    </li>
-
-    <!-- todo-2 -->
-    <li class="todo">
-      <div class="stack-small">
-        <div class="c-cb">
-          <input type="checkbox" id="todo-2" checked/>
-          <label for="todo-2" class="todo-label">
-            Create your first component
-          </label>
-        </div>
-        <div class="btn-group">
-          <button type="button" class="btn">
-            Edit
-            <span class="visually-hidden">Create your first component</span>
-          </button>
-          <button type="button" class="btn btn__danger">
-            Delete
-            <span class="visually-hidden">Create your first component</span>
-          </button>
-        </div>
+      <div class="btn-group">
+        <button type="button" class="btn">
+          Edit <span class="visually-hidden">{todo.name}</span>
+        </button>
+        <button type="button" class="btn btn__danger">
+          Delete <span class="visually-hidden">{todo.name}</span>
+        </button>
       </div>
-    </li>
-    
-    <!-- todo-3 -->
-    <li class="todo">
-      <div class="stack-small">
-        <div class="c-cb">
-          <input type="checkbox" id="todo-3" />
-          <label for="todo-3" class="todo-label">
-            Complete the rest of the tutorial
-          </label>
-        </div>
-        <div class="btn-group">
-          <button type="button" class="btn">
-            Edit
-            <span class="visually-hidden">Complete the rest of the tutorial</span>
-          </button>
-          <button type="button" class="btn btn__danger">
-            Delete
-            <span class="visually-hidden">Complete the rest of the tutorial</span>
-          </button>
-        </div>
-      </div>
-    </li>
-  </ul>
+    </div>
+  </li>
+  {:else}
+  <li>Nothing to do here!</li>
+  {/each}
+</ul>
 
   <hr />
 
