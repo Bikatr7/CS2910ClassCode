@@ -1,6 +1,7 @@
 <!-- components/Todos.svelte -->
 <script>
   import FilterButton from './FilterButton.svelte'
+  import Todo from './Todo.svelte'
   export let todos = []
   
   let newTodoName = ''
@@ -17,6 +18,12 @@
     todos = [...todos, { id: newTodoId, name: newTodoName, completed: false }]
     newTodoName = ''
   }
+
+  function updateTodo(todo) {
+  const i = todos.findIndex((t) => t.id === todo.id);
+  todos[i] = { ...todos[i], ...todo };
+  }
+
 
   let filter = 'all'
   const filterTodos = (filter, todos) => 
@@ -51,34 +58,17 @@
 
   <!-- Todos -->
   <ul role="list" class="todo-list stack-large" aria-labelledby="list-heading">
-  {#each filterTodos(filter, todos) as todo (todo.id)}
+    {#each filterTodos(filter, todos) as todo (todo.id)}
     <li class="todo">
-      <div class="stack-small">
-        <div class="c-cb">
-            <input type="checkbox" id="todo-{todo.id}" 
-              on:click={() => todo.completed = !todo.completed}
-              checked={todo.completed}
-            />          
-            <label for="todo-{todo.id}" class="todo-label">
-            {todo.name}
-          </label>
-        </div>
-        <div class="btn-group">
-          <button type="button" class="btn">
-            Edit <span class="visually-hidden">{todo.name}</span>
-          </button>
-          <button type="button" class="btn btn__danger"
-            on:click={() => removeTodo(todo)}
-          >
-            Delete <span class="visually-hidden">{todo.name}</span>
-          </button>
-        </div>
-      </div>
+      <Todo {todo} on:update={(e) => updateTodo(e.detail)} on:remove={(e) =>
+      removeTodo(e.detail)} />
     </li>
-  {:else}
+      
+    {:else}
     <li>Nothing to do here!</li>
-  {/each}
+    {/each}
   </ul>
+  
 
   <hr />
 
