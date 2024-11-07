@@ -1,5 +1,8 @@
 <!-- components/Todo.svelte -->
 <script>
+  import { tick } from "svelte";
+  import { selectOnFocus } from '../actions';
+  let nameEl;
   import { createEventDispatcher } from 'svelte'
   const dispatch = createEventDispatcher()
 
@@ -27,9 +30,11 @@
     dispatch('remove', todo)              // emit remove event
   }
 
-  function onEdit() {
-    editing = true                        // enter editing mode
-  }
+  async function onEdit() {
+  editing = true; // enter editing mode
+  await tick();
+  nameEl.focus();
+}
 
   function onToggle() {
     update({ completed: !todo.completed}) // updates todo status
@@ -43,7 +48,14 @@
   <form on:submit|preventDefault={onSave} class="stack-small">
     <div class="form-group">
       <label for="todo-{todo.id}" class="todo-label">New name for '{todo.name}'</label>
-      <input bind:value={name} type="text" id="todo-{todo.id}" autoComplete="off" class="todo-text" on:keydown={e => e.key === 'Escape' && onCancel()} />
+      <input
+        bind:value={name}
+        bind:this={nameEl}
+        use:selectOnFocus
+        type="text"
+        id="todo-{todo.id}"
+        autocomplete="off"
+        class="todo-text" />      
     </div>
     <div class="btn-group">
       <button class="btn todo-cancel" on:click={onCancel} type="button">
