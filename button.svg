@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="40">
+  <a href="_">
+    <rect width="240" height="40" fill="black">
+      <animate attributeName="fill" values="black;yellow;black" dur="2s" repeatCount="indefinite" />
+    </rect>
+    <text x="120" y="25" font-family="Arial" font-size="16" fill="yellow" text-anchor="middle">
+      Something Entertaining
+      <animate attributeName="fill" values="yellow;black;yellow" dur="2s" repeatCount="indefinite" />
+    </text>
+  </a>
+</svg>

@@ -23,3 +23,5 @@ I don't like the syntax, it feels like a mix between JS and HTML. I know it's le
 $: is especially annoying.
 
 That's it though. Seems nice otherwise.
+
+![Button](button.svg)
