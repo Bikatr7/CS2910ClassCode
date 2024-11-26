@@ -1,5 +1,6 @@
 let socket;
 let username = '';
+let isConnected = false;
 
 const usernameInput = document.getElementById('username');
 const messageInput = document.getElementById('messageInput');
@@ -12,6 +13,12 @@ function setUsername()
     username = usernameInput.value.trim();
     if (username)
     {
+        if (isConnected)
+        {
+            alert('Already connected to chat! Please use only one connection per tab.');
+            return;
+        }
+
         usernameInput.disabled = true;
         messageInput.disabled = false;
         sendButton.disabled = false;
@@ -22,11 +29,18 @@ function setUsername()
 
 function initializeWebSocket()
 {
+    if (isConnected)
+    {
+        console.log('Already connected to WebSocket server');
+        return;
+    }
+
     socket = new WebSocket('ws://localhost:8080');
 
     socket.onopen = function(e)
     {
         console.log('Connection established');
+        isConnected = true;
         socket.send(JSON.stringify(
         {
             type: 'username',
@@ -55,6 +69,10 @@ function initializeWebSocket()
 
     socket.onclose = function(event)
     {
+        isConnected = false;
+        messageInput.disabled = true;
+        sendButton.disabled = true;
+        
         if (event.wasClean)
         {
             console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
@@ -63,6 +81,8 @@ function initializeWebSocket()
         {
             console.log('Connection died');
         }
+        
+        usernameInput.disabled = false;
     };
 
     socket.onerror = function(error)
