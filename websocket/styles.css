@@ -1,0 +1,85 @@
+body 
+{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f2f5;
+}
+
+.chat-container 
+{
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.username-container 
+{
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.messages 
+{
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.message 
+{
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+}
+
+.message .username 
+{
+    font-weight: bold;
+    color: #2b5278;
+}
+
+.message-form 
+{
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"] 
+{
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+button 
+{
+    padding: 8px 16px;
+    background-color: #0084ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:disabled 
+{
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) 
+{
+    background-color: #0073e6;
+} 
