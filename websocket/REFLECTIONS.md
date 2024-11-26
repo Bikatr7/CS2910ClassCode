@@ -3,9 +3,9 @@
 ##  Possible (Likely) Security Vulnerabilities
 
 1. Cross-Site Scripting (XSS)
-   - While we implemented HTML escaping for chat messages using `escapeHtml()`, usernames are not escaped and could be used for XSS attacks
-   - The escaping function might miss some edge cases or newer XSS attack vectors
-   - System messages are rendered as HTML with `<em>` tags without escaping
+   - ~~While we implemented HTML escaping for chat messages using `escapeHtml()`, usernames are not escaped and could be used for XSS attacks~~
+   - ~~The escaping function might miss some edge cases or newer XSS attack vectors~~
+   - ~~System messages are rendered as HTML with `<em>` tags without escaping~~
 
 2. No Authentication/Authorization
    - Users can join without any authentication
